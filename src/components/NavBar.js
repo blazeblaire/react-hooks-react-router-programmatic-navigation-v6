@@ -1,22 +1,28 @@
-import { NavLink} from "react-router-dom";
+// NavBar.js
+import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
-function NavBar() {
-
+function NavBar({ logout }) {
   return (
     <nav>
       <NavLink
         to="/"
-        className="nav-link" 
+        className="nav-link"
       >
         Home
       </NavLink>
+
       <NavLink
         to="/about"
         className="nav-link"
       >
         About
       </NavLink>
+
+      {/* Logout button triggers programmatic navigation */}
+      <button onClick={logout}>
+        Logout
+      </button>
     </nav>
   );
 }

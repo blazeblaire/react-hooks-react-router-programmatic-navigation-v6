@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  // Get login function from App via Outlet context
+  const { login } = useOutletContext();
+  const navigate = useNavigate();
 
   function handleChange(e) {
     setFormData({
@@ -15,11 +20,15 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
+    // Call the login function with form data
+    login(formData);
+    // Redirect to Home after login
+    navigate("/");
   }
 
   return (
     <form onSubmit={handleLogin}>
-      <label for="username">Username</label>
+      <label htmlFor="username">Username</label>
       <div>
         <input
           id="username"
@@ -29,7 +38,8 @@ function Login() {
           onChange={handleChange}
         />
       </div>
-      <label for="password">Password</label>
+
+      <label htmlFor="password">Password</label>
       <div>
         <input
           id="password"
@@ -37,8 +47,9 @@ function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-        />      
+        />
       </div>
+
       <button type="submit">Login</button>
     </form>
   );
